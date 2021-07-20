@@ -1,10 +1,11 @@
 <?php
+
 namespace Keto_Recipes\App\Views\Admin;
 
 use Keto_Recipes\Core\View;
 use Keto_Recipes as Keto_Recipes;
 
-if ( ! class_exists( __NAMESPACE__ . '\\' . 'Admin_Settings' ) ) {
+if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 	/**
 	 * View class to load all templates related to Plugin's Admin Settings Page
 	 *
@@ -12,7 +13,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Admin_Settings' ) ) {
 	 * @package    Keto_Recipes
 	 * @subpackage Keto_Recipes/views/admin
 	 */
-	class Admin_Settings extends View {
+	class Admin_Settings extends View
+	{
 		/**
 		 * Prints Settings Page.
 		 *
@@ -20,7 +22,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Admin_Settings' ) ) {
 		 * @return void
 		 * @since 1.0.0
 		 */
-		public function admin_settings_page( $args = [] ) {
+		public function admin_settings_page($args = [])
+		{
 			echo $this->render_template(
 				'admin/page-settings/page-settings.php',
 				$args
@@ -34,7 +37,8 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Admin_Settings' ) ) {
 		 * @return void
 		 * @since 1.0.0
 		 */
-		public function section_headers( $args = [] ) {
+		public function section_headers($args = [])
+		{
 			echo $this->render_template(
 				'admin/page-settings/page-settings-section-headers.php',
 				$args
@@ -48,11 +52,20 @@ if ( ! class_exists( __NAMESPACE__ . '\\' . 'Admin_Settings' ) ) {
 		 * @return void
 		 * @since 1.0.0
 		 */
-		public function markup_fields( $args = [] ) {
+		public function markup_fields($args = [])
+		{
 			echo $this->render_template(
 				'admin/page-settings/page-settings-fields.php',
 				$args
 			); // WPCS: XSS OK.
+		}
+
+		public function documentation($args = [])
+		{
+			echo $this->render_template(
+				'admin/page-settings/documentation.php',
+				$args
+			);
 		}
 	}
 }

@@ -56,6 +56,8 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 			// Register Fields.
 			add_action('load-' . static::$hook_suffix, array($this, 'register_fields'));
 
+			add_action('keto_recipes_documentation', array($this, 'dumentation_tab'));
+
 			// Register Settings.
 			add_action('admin_init', array($this->get_model(), 'register_settings'));
 
@@ -139,12 +141,19 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 						'page_title'    => Keto_Recipes::PLUGIN_NAME,
 						'settings_name' => $this->get_model()->get_plugin_settings_option_key(),
 						'slug'	=> Keto_Recipes::PLUGIN_ID,
-						'active' => isset($_GET['tab']) ? $_GET['tab'] : 'search',
+						'active' => isset($_GET['tab']) ? $_GET['tab'] : 'general',
+						'view' => isset($_GET['tab']) ? $this->getView($_GET['tab']) : null,
 						'tabs'	=> array(
 							[
-								'tab' 		=> 'search',
-								'title' 	=> 'Search'
-							]
+								'tab' 		=> 'general',
+								'title' 	=> 'General',
+								'url'		=> '?page=' . Keto_Recipes::PLUGIN_ID
+							],
+							[
+								'tab' 		=> 'documentation',
+								'title' 	=> 'Documentation',
+								'url'		=> '?page=' . Keto_Recipes::PLUGIN_ID . '&tab=documentation',
+							],
 						)
 					)
 				);
@@ -152,6 +161,14 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 				wp_die(__('Access denied.')); // WPCS: XSS OK.
 			}
 		}
+
+		public function dumentation_tab()
+		{
+			if (current_user_can(static::REQUIRED_CAPABILITY)) {
+				$this->view->documentation();
+			}
+		}
+
 
 		/**
 		 * Registers settings sections and fields
@@ -161,24 +178,47 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 		public function register_fields()
 		{
 
-			// Add Settings Page Section.
+			// Add Settings General Page Section.
 			add_settings_section(
-				'keto_recipes_section',                    // Section ID.
-				__('Settings', Keto_Recipes::PLUGIN_ID), // Section Title.
+				'keto_recipes_general_section',                    // Section ID.
+				__('General', Keto_Recipes::PLUGIN_ID), // Section Title.
 				array($this, 'markup_section_headers'), // Section Callback.
 				static::SETTINGS_PAGE_SLUG                 // Page URL.
 			);
 
 			// Add Settings Page Field.
 			add_settings_field(
-				'keto_recipes_field',                                // Field ID.
-				__('Keto Recipes Field:', Keto_Recipes::PLUGIN_ID), // Field Title.
-				array($this, 'markup_fields'),                    // Field Callback.
+				'keto_recipes_search',                                // Field ID.
+				__('Search:', Keto_Recipes::PLUGIN_ID), // Field Title.
+				array($this, 'markup_field_search'),                    // Field Callback.
 				static::SETTINGS_PAGE_SLUG,                          // Page.
-				'keto_recipes_section',                              // Section ID.
-				array(                                              // Field args.
-					'id'        => 'keto_recipes_field',
-					'label_for' => 'keto_recipes_field',
+				'keto_recipes_general_section',                              // Section ID.
+				array(
+					'id' => 'keto_recipes_search',
+				)
+			);
+
+			// Add Settings Page Field.
+			add_settings_field(
+				'keto_recipes_columns',                                // Field ID.
+				__('Number of columns:', Keto_Recipes::PLUGIN_ID), // Field Title.
+				array($this, 'markup_field_columns'),                    // Field Callback.
+				static::SETTINGS_PAGE_SLUG,                          // Page.
+				'keto_recipes_general_section',                              // Section ID.
+				array(
+					'id' => 'keto_recipes_columns',
+				)
+			);
+
+			// Add Settings Page Field.
+			add_settings_field(
+				'keto_recipes_excerpt',                                // Field ID.
+				__('Number of lines in the excerpt:', Keto_Recipes::PLUGIN_ID), // Field Title.
+				array($this, 'markup_field_excerpt'),                    // Field Callback.
+				static::SETTINGS_PAGE_SLUG,                          // Page.
+				'keto_recipes_general_section',                              // Section ID.
+				array(
+					'id' => 'keto_recipes_excerpt',
 				)
 			);
 		}
@@ -196,10 +236,11 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 			$this->view->section_headers(
 				array(
 					'section'      => $section,
-					'text_example' => __('This is a text example for section header', Keto_Recipes::PLUGIN_ID),
+					'section_description' => __("This session sets the plugin's default settings.", Keto_Recipes::PLUGIN_ID),
 				)
 			);
 		}
+
 
 		/**
 		 * Delivers the markup for settings fields
@@ -209,15 +250,55 @@ if (!class_exists(__NAMESPACE__ . '\\' . 'Admin_Settings')) {
 		 *
 		 * @since    1.0.0
 		 */
-		public function markup_fields($field_args)
+		public function markup_field_search($field_args)
+		{
+			$field_id = $field_args['id'];
+			$settings_value = $this->get_model()->get_setting($field_id);
+			$checked = (!empty($settings_value)) ? 'checked="checked"' : null;
+			$this->view->markup_fields(
+				array(
+					'id'		   => esc_attr($field_id),
+					'type'         => 'checkbox',
+					'name'         => $this->get_model()->get_plugin_settings_option_key(),
+					'label_for'    => esc_attr($field_id),
+					'value'        => 'yes',
+					'description'  => __('Displays the search filter.', Keto_Recipes::PLUGIN_ID),
+					'checked'      => $checked,
+					'tip'	 	   => null
+				)
+			);
+		}
+
+		public function markup_field_excerpt($field_args)
 		{
 			$field_id = $field_args['id'];
 			$settings_value = $this->get_model()->get_setting($field_id);
 			$this->view->markup_fields(
 				array(
-					'field_id'       => esc_attr($field_id),
-					'settings_name'  => $this->get_model()->get_plugin_settings_option_key(),
-					'settings_value' => !empty($settings_value) ? esc_attr($settings_value) : '',
+					'id'		   => esc_attr($field_id),
+					'type'         => 'number',
+					'name'         => $this->get_model()->get_plugin_settings_option_key(),
+					'label_for'    => esc_attr($field_id),
+					'value'        => $settings_value,
+					'min'		   => 1,
+					'max'		   => 6
+				)
+			);
+		}
+
+		public function markup_field_columns($field_args)
+		{
+			$field_id = $field_args['id'];
+			$settings_value = $this->get_model()->get_setting($field_id);
+			$this->view->markup_fields(
+				array(
+					'id'		   => esc_attr($field_id),
+					'type'         => 'number',
+					'name'         => $this->get_model()->get_plugin_settings_option_key(),
+					'label_for'    => esc_attr($field_id),
+					'value'        => $settings_value,
+					'min'		   => 1,
+					'max'		   => 6
 				)
 			);
 		}

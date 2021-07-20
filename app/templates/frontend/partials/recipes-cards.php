@@ -13,7 +13,7 @@ if ($fetched_recipes->have_posts()) :
 					<a href="<?php echo the_permalink(); ?>" class="keto-recipe-card-title"><?php echo the_title(); ?></a>
 					<span class="keto-recipe-card-author">By <strong><?php echo get_the_author_meta('display_name', $fetched_recipes->ID); ?></strong></span>
 					<span class="keto-recipe-card-sep"></span>
-					<span class="keto-recipe-card-excerpt"><?php echo esc_html_e(get_field("excerpt", $fetched_recipes->ID)); ?></span>
+					<span class="keto-recipe-card-excerpt"><?php echo wp_strip_all_tags(get_field("excerpt", $fetched_recipes->ID)); ?></span>
 				</span>
 			</article>
 		<?php

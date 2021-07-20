@@ -142,7 +142,13 @@ $router
 	->with_controller('Print_Recipes_Shortcode@register_hook_callbacks') // Resolved by Router to 'Keto_Recipes\App\Controllers\Frontend\Print_Recipes_Shortcode'.
 	->with_model('Print_Recipes_Shortcode') // Resolved by Router to 'Keto_Recipes\App\Models\Frontend\Print_Recipes_Shortcode'.
 	->with_view('Print_Recipes_Shortcode'); // Resolved by Router to 'Keto_Recipes\App\Views\Frontend\Print_Recipes_Shortcode'.
-	
+
+$router
+	->register_route_of_type(ROUTE_TYPE::FRONTEND)
+	->with_controller('Print_Filters_Shortcode@register_hook_callbacks') // Resolved by Router to 'Keto_Recipes\App\Controllers\Frontend\Print_Filters_Shortcode'.
+	->with_model('Print_Filters_Shortcode') // Resolved by Router to 'Keto_Recipes\App\Models\Frontend\Print_Filters_Shortcode'.
+	->with_view('Print_Filters_Shortcode'); // Resolved by Router to 'Keto_Recipes\App\Views\Frontend\Print_Filters_Shortcode'.
+
 $router
 	->register_route_of_type(ROUTE_TYPE::FRONTEND_WITH_POSSIBLE_AJAX)
 	->with_controller('Print_Recipes_Ajax@register_hook_callbacks')

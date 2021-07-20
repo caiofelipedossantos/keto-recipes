@@ -840,20 +840,20 @@ body .keto-nutrition-label dl.keto-nut-bottom dt:nth-last-child(2):nth-child(eve
 	padding: 0 1rem
 }
 
-.keto-recipe-search .keto-label{
-    display: block;
-    color: #ca404f;
-    cursor: pointer;
+.keto-recipe-search .keto-label {
+	display: block;
+	color: #ca404f;
+	cursor: pointer;
 }
 
-.keto-recipe-search .keto-label.disabled{
-    cursor: not-allowed !important;
-    color: #ebb7bd;
+.keto-recipe-search .keto-label.disabled {
+	cursor: not-allowed !important;
+	color: #ebb7bd;
 }
 
-.keto-recipe-search .keto-label.disabled input{
-    opacity: 0.5;
-    pointer-events: none;
+.keto-recipe-search .keto-label.disabled input {
+	opacity: 0.5;
+	pointer-events: none;
 }
 
 .keto-recipe-search .keto-browse-select:hover {
@@ -1345,10 +1345,10 @@ body p.keto-none-found {
 }
 
 .keto-recipe-card-excerpt {
-    display: -webkit-box !important;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+	display: -webkit-box !important;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
 	margin: .5rem 0;
 	font-size: 1rem;
 }
@@ -1406,7 +1406,8 @@ body p.keto-none-found {
 
 .keto-recipe-card-modern-centered:hover .keto-recipe-card-sep,
 .keto-recipe-card-modern:hover .keto-recipe-card-sep {
-	width: 25%
+	width: 25%;
+	background: #ca404f;
 }
 
 .widget .keto-recipe-card {
@@ -1782,87 +1783,87 @@ body.keto-fsm-active #wpadminbar {
 }
 
 .keto-recipe-search .keto-browse-select.keto-active .keto-browse-select-block {
-    width: 680%;
-    padding: 1.5rem .75rem;   
+	width: 680%;
+	padding: 1.5rem .75rem;
 }
 
 
-.keto-recipe-empty{
-    position: relative;
-    width: 100%;
-    text-align: center;   
+.keto-recipe-empty {
+	position: relative;
+	width: 100%;
+	text-align: center;
 }
 
 #keto-recipe-container.loading>* {
-    opacity: 0.2;
+	opacity: 0.2;
 }
 
 #keto-recipe-container.loading:after {
-    content: '';
-    position: absolute;
-    display: inline-block;
-    width: 49.3333333px;
-    height: 85.3333333px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ca404f;
-    z-index: 99;
-    -webkit-mask: url('../../images/frontend/icons/loading.svg') no-repeat 50% 50%;
-    mask: url('../../images/frontend/icons/loading.svg') no-repeat 50% 50%;
-    -webkit-mask-size: cover;
-    mask-size: cover;
+	content: '';
+	position: absolute;
+	display: inline-block;
+	width: 49.3333333px;
+	height: 85.3333333px;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #ca404f;
+	z-index: 99;
+	-webkit-mask: url('../../images/frontend/icons/loading.svg') no-repeat 50% 50%;
+	mask: url('../../images/frontend/icons/loading.svg') no-repeat 50% 50%;
+	-webkit-mask-size: cover;
+	mask-size: cover;
 }
 
 @media only screen and (max-width: 768px) {
-    
-    [class*="keto-columns-"] .keto-recipe {
-        width: 47% !important;
-	    min-width: 47% !important;
-    }
-  
-    .keto-browse-select .keto-field-title{
-        visibility: hidden;
-    }
-  
-    .keto-recipe-search .keto-sortby-wrap{
-        width: 3rem;
-    }
-  
-    .keto-recipe-search .keto-sortby-wrap >select{
-        opacity: 0;
-    }   
-  
-    .keto-recipe-search .keto-browse-select.keto-active .keto-browse-select-block {
-        width: 837%;
-        height: auto;
-        padding: 1.5rem .75rem;
-        flex-direction: column;
-    }
-  
-    .keto-recipe-search .keto-browse-select-block .keto-tax-column{
-        margin-bottom: .75rem;
-    }
-    
-    .keto-recipe-search .keto-fields-wrap>.keto-browse-search {
-        width: 84%;
-        max-width: 85%;
-        margin: 0;
-    }
-  
+
+	[class*="keto-columns-"] .keto-recipe {
+		width: 47% !important;
+		min-width: 47% !important;
+	}
+
+	.keto-browse-select .keto-field-title {
+		visibility: hidden;
+	}
+
+	.keto-recipe-search .keto-sortby-wrap {
+		width: 3rem;
+	}
+
+	.keto-recipe-search .keto-sortby-wrap>select {
+		opacity: 0;
+	}
+
+	.keto-recipe-search .keto-browse-select.keto-active .keto-browse-select-block {
+		width: 837%;
+		height: auto;
+		padding: 1.5rem .75rem;
+		flex-direction: column;
+	}
+
+	.keto-recipe-search .keto-browse-select-block .keto-tax-column {
+		margin-bottom: .75rem;
+	}
+
+	.keto-recipe-search .keto-fields-wrap>.keto-browse-search {
+		width: 84%;
+		max-width: 85%;
+		margin: 0;
+	}
+
 }
 
 @media only screen and (max-width: 412px) {
-    [class*="keto-columns-"] .keto-recipe {
-        width: 97% !important;
-	    min-width: 97% !important;
-    }
-  
-    .keto-recipe-search .keto-browse-select.keto-active .keto-browse-select-block {
-        width: 843%;
-        height: auto;
-        padding: 1.5rem .75rem;
-        flex-direction: column;
-    }
-  
+	[class*="keto-columns-"] .keto-recipe {
+		width: 97% !important;
+		min-width: 97% !important;
+	}
+
+	.keto-recipe-search .keto-browse-select.keto-active .keto-browse-select-block {
+		width: 843%;
+		height: auto;
+		padding: 1.5rem .75rem;
+		flex-direction: column;
+	}
+
 }

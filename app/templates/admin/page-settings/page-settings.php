@@ -7,7 +7,7 @@
 		<?php
 		foreach ($tabs as $tab) {
 		?>
-			<a href="?page=<?php echo esc_html($slug); ?>" class="nav-tab <?php if ($active === $tab['tab']) : ?>nav-tab-active<?php endif; ?>"><?php echo esc_html($tab['title']); ?></a>
+			<a href="<?php echo esc_html($tab['url']); ?>" class="nav-tab <?php if ($active === $tab['tab']) : ?>nav-tab-active<?php endif; ?>"><?php echo esc_html($tab['title']); ?></a>
 		<?php
 		}
 		?>
@@ -15,6 +15,7 @@
 
 	<div class="tab-content">
 		<?php switch ($active):
+			case 'general':
 			default:
 		?>
 				<form id="keto_recipes" method="post" action="options.php">
@@ -25,6 +26,9 @@
 					?>
 				</form>
 		<?php
+				break;
+			case 'documentation':
+				do_action('keto_recipes_documentation');
 				break;
 		endswitch; ?>
 	</div>
