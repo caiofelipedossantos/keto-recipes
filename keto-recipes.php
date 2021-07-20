@@ -4,14 +4,14 @@
  * Main Plugin File
  *
  * @link              http://ketorecipes.fit
- * @since             1.0.0
+ * @since             1.1.0
  * @package           Keto_Recipes
  *
  * @wordpress-plugin
  * Plugin Name:       Keto Recipes
  * Plugin URI:        https://devapps.com.br/plugins/ketorecipes
  * Description:       Plugin responsible for providing new features for the theme.
- * Version:           1.0.0
+ * Version:           1.1.0
  * Author:            Caio Felipe
  * Author URI:        http://devapps.com/
  * License:           GPL-2.0+
